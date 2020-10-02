@@ -79,7 +79,7 @@ static int cmd_x(char *args)
 	{
 		uint32_t data = swaddr_read(addr+i*4,4);
 		printf("0x%08x  ",addr+i*4);
-		for(int j=0; j<4; i++)
+		for(int j=0; j<4; j++)
 		{
 			printf("%02x  ",data & 0xff);
 			data=data>>8;
