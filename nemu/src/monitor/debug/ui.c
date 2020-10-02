@@ -54,7 +54,7 @@ static int cmd_info(char *args)
 {
 	char *arg = strtok(args,"");     //get the command r or w
 	printf("%s\n",arg);
-	if(strcmp(arg,"r"))
+	if(strcmp(arg,"r")==0)
 	    		{
 			printf("register eax is %x\n",cpu.eax);
 			printf("register ecx is %x\n",cpu.ecx);
