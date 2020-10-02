@@ -70,18 +70,18 @@ static int cmd_info(char *args)
 
 static int cmd_x(char *args)
 {
-	char *arg = strtok(args,"");  //get the number for recurcive times
+	char *arg = strtok(args," ");  //get the number for recurcive times
 	int n = atoi(arg);    	      //change the type from char to int
-	char *EXPR = strtok(NULL,""); //get the adrress(char type)
+	char *EXPR = strtok(NULL," "); //get the adrress(char type)
 	char *str;
 	swaddr_t addr = strtol(EXPR,&str,16);
-	for (int i = 0; i < n; ++i)
+	for (int i = 0; i < n; i++)
 	{
 		uint32_t data = swaddr_read(addr+i*4,4);
 		printf("0x%08x  ",addr+i*4);
-		for(int j=0; j<4; ++j)
+		for(int j=0; j<4; i++)
 		{
-			printf("%02x",data & 0xff);
+			printf("%02x  ",data & 0xff);
 			data=data>>8;
 		}
 		printf("\n");
