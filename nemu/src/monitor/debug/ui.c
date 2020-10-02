@@ -46,10 +46,27 @@ static int cmd_si(char *args)
 	}
 	int num=atoi(arg);
 	cpu_exec(num);
-	printf("OK");
+	printf("Execute sucessfully");
 	return 0;
 }
 
+static int cmd_info(char *args)
+{
+	char *arg = strtok(args,"");     //get the command r or w
+	printf("%s\n",arg);
+	if(strcmp(arg,"r"))
+	    		{
+			printf("register eax is %x\n",cpu.eax);
+			printf("register ecx is %x\n",cpu.ecx);
+			printf("register edx is %x\n",cpu.edx);
+			printf("register ebx is %x\n",cpu.ebx);
+			printf("register ebp is %x\n",cpu.esp);
+			printf("register esi is %x\n",cpu.esi);
+			printf("register edi is %x\n",cpu.edi);
+			}
+	//else
+	return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -61,7 +78,8 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{"si", "execute the given steps",cmd_si}
+	{"si", "execute the given steps",cmd_si},
+	{"info","print the register information or the watchpoint information",cmd_info}
 	/* TODO: Add more commands */
 
 };
