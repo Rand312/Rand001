@@ -68,6 +68,27 @@ static int cmd_info(char *args)
 	return 0;
 }
 
+static int cmd_x(char *args)
+{
+	char *arg = strtok(args,"");  //get the number for recurcive times
+	int n = atoi(arg);    	      //change the type from char to int
+	char *EXPR = strtok(NULL,""); //get the adrress(char type)
+	char *str;
+	swaddr_t addr = strtol(EXPR,&str,16);
+	for (int i = 0; i < n; ++i)
+	{
+		uint32_t data = swaddr_read(addr+i*4,4);
+		printf("0x%x  ",addr+i*4);
+		for(int j=0; j<4; ++j)
+		{
+			printf("%x",data & 0xff);
+			data=data>>8;
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -79,7 +100,8 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{"si", "execute the given steps",cmd_si},
-	{"info","print the register information or the watchpoint information",cmd_info}
+	{"info","print the register information or the watchpoint information",cmd_info},
+	{"x", "print the data in memory in the certain area",cmd_x}
 	/* TODO: Add more commands */
 
 };
