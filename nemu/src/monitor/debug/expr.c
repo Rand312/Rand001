@@ -139,13 +139,13 @@ int dominant_operator(int p, int q)
 	for(i=p;i<=q;i++)
 	{
 		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue;
-		if(tokens[i].type==LBRA)
+		/*if(tokens[i].type==LBRA)
 		{
 			do
 			{i++;}
 			while(tokens[i].type!=RBRA);
 			i++;
-		}
+		}*/
 		if(tokens[i].priority<=min_priority)
 		{
 			op=i;
