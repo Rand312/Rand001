@@ -89,6 +89,17 @@ static int cmd_x(char *args)
 	return 0;
 }
 
+static int cmd_p(char *args)
+{
+	uint32_t num;
+	bool suc;
+	num=expr(args,&suc);
+	if(suc)
+		printf("0x%x:\t%d\n",num,num);
+	else assert(0);
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -101,7 +112,8 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{"si", "execute the given steps",cmd_si},
 	{"info","print the register information or the watchpoint information",cmd_info},
-	{"x", "print the data in memory in the certain area",cmd_x}
+	{"x", "print the data in memory in the certain area",cmd_x},
+	{"p", "calculate  the expression",cmd_p}
 	/* TODO: Add more commands */
 
 };

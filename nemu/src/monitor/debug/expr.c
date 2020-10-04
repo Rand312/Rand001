@@ -7,8 +7,14 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ
-
+	NOTYPE = 256,
+       	ADD, SUB,	      //+ -
+       	MUL, DIV, MOD,		//* / %
+        EQ, NEQ,
+ 	L, G, LE, GE,	
+	LOR, LAND,            //Logic operation
+        LBRA, RBRA,           //(  )
+	NUMBER,HNUMBER,REGISTER
 	/* TODO: Add more token types */
 
 };
@@ -16,15 +22,32 @@ enum {
 static struct rule {
 	char *regex;
 	int token_type;
+	int priority;
 } rules[] = {
 
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",	NOTYPE},				// spaces
-	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
+	{" +",	NOTYPE,0},				// spaces
+	{"\\+", ADD,4},            			// plus
+	{"-",SUB,4},
+	{"\\*",MUL,5},
+	{"/",DIV,5},
+	{"%",MOD,5},
+	{"==",EQ,3},	// equal
+	{"!=",NEQ,3},
+	{"<",L,3},
+	{">",G,3},
+	{"<=",LE,3},
+	{">=",GE,3},
+	{"&&",LAND,2},
+	{"\\|\\|",LOR,1},
+	{"\\(",LBRA,7},
+	{"\\)",RBRA,7},
+	{"[0-9]+",NUMBER,0},
+	{"0[xX][a-fA-F0-9]+",HNUMBER,0},
+	{"\\$[a-zA-Z]+",REGISTER,0}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -51,6 +74,7 @@ void init_regex() {
 typedef struct token {
 	int type;
 	char str[32];
+	int priority;
 } Token;
 
 Token tokens[32];
@@ -79,8 +103,22 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
-					default: panic("please implement me");
+					case NOTYPE: break;
+			     		case REGISTER:
+						     tokens[nr_token].type=rules[i].token_type;
+						     strncpy(tokens[nr_token].str,substr_start,substr_len);
+						     tokens[nr_token].priority=rules[i].priority;
+						     tokens[nr_token].str[substr_len]='\0';
+						     nr_token++;
+						     break;
+			  		case NUMBER:
+						     tokens[nr_token].type=rules[i].token_type;
+						     strncpy(tokens[nr_token].str,substr_start,substr_len);
+						     tokens[nr_token].priority=rules[i].priority;
+						     tokens[nr_token].str[substr_len]='\0';
+						     nr_token++;
 				}
+				position+=substr_len;
 
 				break;
 			}
@@ -95,14 +133,100 @@ static bool make_token(char *e) {
 	return true; 
 }
 
-uint32_t expr(char *e, bool *success) {
-	if(!make_token(e)) {
+bool check_parentheses(int p, int q)
+{
+	int i;
+	if(tokens[p].type=='(' && tokens[q].type==')')
+	{
+		int lp=0, rp=0;
+		for(i=p+1; i<q; i++)
+		{
+			if((tokens[i].type='(')) lp++;
+			if((tokens[i].type=')')) rp++;
+		}
+		if(lp!=rp) return true;
+		else return false;
+	}
+	return false;
+}
+
+int dominant_operator(int p, int q)
+{
+	int i,j;
+	int min_priority=10;
+	int oper=p;
+	for(i=p;i<=q;i++)
+	{
+		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER) continue;
+		int cnt=0;
+		bool key = true;
+		for(j=i-1;j>=1;j--)
+		{
+			if(tokens[j].type=='(' && !cnt) {key=false; break;}
+			if(tokens[j].type=='(') cnt--;
+			if(tokens[j].type==')') cnt++;
+		}
+		if(!key) continue;
+		if(tokens[i].priority<=min_priority) {min_priority=tokens[i].priority; oper=i;}
+	}
+	return oper;
+}
+
+
+uint32_t eval(int p, int q)
+{
+	int value=0;
+	if(p>q) {Assert(p>q,"Bad epressions!\n");}
+	else if(p==q)
+	{
+		int i;
+		switch(tokens[p].type)
+		{
+		case NUMBER:
+		
+			i=0;
+			while(tokens[p].str[i]!=0)
+			{
+				value*=10;
+				value+=tokens[p].str[i]-'0';
+				i++;
+			}
+			break;
+		}
+	}
+
+	
+	else if(check_parentheses(p,q))
+	{
+		return eval(p+1,q-1);
+	}
+	else
+	{
+		char op;
+		int op_pos;
+		op_pos=dominant_operator(p,q);
+		op=tokens[op_pos].type;
+		int val1=eval(p,op_pos-1);
+		int val2=eval(op_pos+1,q);
+
+		switch(op)
+			case '+':
+			value=val1+val2;
+			
+	}
+	return value;
+}
+
+uint32_t expr(char *e, bool *success)
+{
+	if(!make_token(e)) 
+	{
 		*success = false;
 		return 0;
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-	panic("please implement me");
-	return 0;
+	*success=true;
+	return eval(0,nr_token-1);
 }
 
