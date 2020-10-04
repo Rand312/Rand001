@@ -103,6 +103,7 @@ static bool make_token(char *e) {
 					case NOTYPE: break;
 			     		default:
 						     tokens[nr_token].type=rules[i].token_type;
+						     tokens[nr_token].priority=rules[i].priority;
 						     for(int j=0;j<substr_len;j++)
 						     {
 							     tokens[nr_token].str[j]=*(substr_start+j);
