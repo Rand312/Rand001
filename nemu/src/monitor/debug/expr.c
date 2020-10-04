@@ -136,6 +136,7 @@ int dominant_operator(int p, int q)
 	int i=0;
 	int op=0;
 	int min_priority=10;
+	printf("%d%d",p,q);
 	for(i=p;i<=q;i++)
 	{
 		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue;
