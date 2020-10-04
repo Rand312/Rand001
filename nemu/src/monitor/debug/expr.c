@@ -202,7 +202,7 @@ uint32_t eval(int p, int q)
 	}
 	else
 	{
-		char op;
+		int op;
 		int op_pos;
 		op_pos=dominant_operator(p,q);
 		op=tokens[op_pos].type;
@@ -211,7 +211,7 @@ uint32_t eval(int p, int q)
 
 		switch(op)
 		{
-			case '+':
+			case ADD:
 			value=val1+val2;
 		}
 			
