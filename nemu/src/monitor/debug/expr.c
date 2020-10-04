@@ -11,8 +11,7 @@ enum {
        	ADD, SUB,	      //+ -
        	MUL, DIV, MOD,		//* / %
 	NON,
-        EQ, NEQ,
- 	L, G, LE, GE,	
+        EQ, NEQ,	
 	LOR, LAND,            //Logic operation
         LBRA, RBRA,           //(  )
 	NUMBER,HNUMBER,REGISTER
@@ -39,10 +38,6 @@ static struct rule {
 	{"!",NON,6},
 	{"==",EQ,3},	// equal
 	{"!=",NEQ,3},
-	{"<",L,3},
-	{">",G,3},
-	{"<=",LE,3},
-	{">=",GE,3},
 	{"&&",LAND,2},
 	{"\\|\\|",LOR,1},
 	{"\\(",LBRA,7},
