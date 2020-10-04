@@ -192,6 +192,9 @@ uint32_t eval(int p, int q)
 				i++;
 			}
 			break;
+		case HNUMBER:
+			sscanf(tokens[p].str,"%d",&value);
+			break;
 		}
 	}
 
@@ -213,6 +216,14 @@ uint32_t eval(int p, int q)
 		{
 			case ADD:
 			value=val1+val2;
+			case SUB:
+			value=val1-val2;
+			case MUL:
+			value=val1*val2;
+			case DIV:
+			value=val1/val2;
+			case MOD:
+			value=val1%val2;
 		}
 			
 	}
