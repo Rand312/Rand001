@@ -214,6 +214,10 @@ uint32_t eval(int p, int q)
 			value=val1+val2;
 			
 	}
+	for(int i=0;i<nr_token;i++)
+	{
+		printf("%d",tokens[i].type);
+	}
 	return value;
 }
 
