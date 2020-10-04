@@ -180,7 +180,7 @@ uint32_t eval(int p, int q)
 			break;
 		case HNUMBER:
 			i=2;	
-			while(tokens[p].str[i]!=0)
+			while(tokens[p].str[i]!=0)    //sscanf(tokens[p].str,"%d",&value)
 			{
 				value*=16;
 				value+=tokens[p].str[i]<58?tokens[p].str[i]-'0':tokens[p].str[i]-'a'+10;
