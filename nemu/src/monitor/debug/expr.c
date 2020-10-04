@@ -216,7 +216,7 @@ uint32_t eval(int p, int q)
 	}
 	for(int i=0;i<nr_token;i++)
 	{
-		printf("%d",tokens[i].type);
+		printf("%d\n",tokens[i].type);
 	}
 	return value;
 }
