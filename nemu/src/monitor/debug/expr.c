@@ -153,6 +153,7 @@ int dominant_operator(int p, int q)
 		}
 		else continue;
 	}
+	printf("%d",op);
 	return op;
 }
 uint32_t eval(int p, int q)
