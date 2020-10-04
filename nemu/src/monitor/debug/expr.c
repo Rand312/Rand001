@@ -210,8 +210,10 @@ uint32_t eval(int p, int q)
 		int val2=eval(op_pos+1,q);
 
 		switch(op)
+		{
 			case '+':
 			value=val1+val2;
+		}
 			
 	}
 	for(int i=0;i<nr_token;i++)
