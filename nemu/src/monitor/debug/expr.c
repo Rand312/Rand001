@@ -199,7 +199,7 @@ uint32_t eval(int p, int q)
 		int op_pos;
 		op_pos=dominant_operator(p,q);
 		op=tokens[op_pos].type;
-		printf("11111%d",op);
+		printf("%d",op);
 		int val1=eval(p,op_pos-1);
 		int val2=eval(op_pos+1,q);
 
