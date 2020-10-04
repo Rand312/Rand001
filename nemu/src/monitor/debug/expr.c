@@ -159,7 +159,7 @@ int dominant_operator(int p, int q)
 		}
 		if(tokens[i].priority<=min_priority)
 		{
-			op=tokens[i].type;
+			op=i;
 			min_priority=tokens[i].priority;
 		}
 		else continue;
