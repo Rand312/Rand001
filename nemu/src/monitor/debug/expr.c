@@ -140,13 +140,13 @@ int dominant_operator(int p, int q)
 	for(i=p;i<=q;i++)
 	{
 		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue;
-		/*if(tokens[i].type==LBRA)
+		if(tokens[i].type==LBRA)
 		{
 			do
 			{i++;}
 			while(tokens[i].type!=RBRA);
 			i++;
-		}*/
+		}
 		if(tokens[i].priority<=min_priority)
 		{
 			op=i;
@@ -200,7 +200,7 @@ uint32_t eval(int p, int q)
 		int op_pos;
 		op_pos=dominant_operator(p,q);
 		op=tokens[op_pos].type;
-		printf("%d",op);
+		printf("%d ",op);
 		int val1=eval(p,op_pos-1);
 		int val2=eval(op_pos+1,q);
 
