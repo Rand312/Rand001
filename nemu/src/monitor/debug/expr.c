@@ -151,7 +151,6 @@ int dominant_operator(int p, int q)
 		{
 			op=i;
 			min_priority=tokens[i].priority;
-			printf("%d",min_priority);
 		}
 		else continue;
 	}
