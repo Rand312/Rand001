@@ -144,28 +144,28 @@ bool check_parentheses(int p, int q)
 
 int dominant_operator(int p, int q)
 {
-	int i,j;
+	int i=0;
+	int op=0;
 	int min_priority=10;
-	int oper=p;
 	for(i=p;i<=q;i++)
 	{
 		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue;
-		int cnt=0;
-		bool key = true;
-		for(j=i-1;j>=1;j--)
+		if(tokens[i].type==LBRA)
 		{
-			if(tokens[j].type=='(' && !cnt) {key=false; break;}
-			if(tokens[j].type=='(') cnt--;
-			if(tokens[j].type==')') cnt++;
+			do
+			{i++;}
+			while(tokens[i].type!=RBRA);
+			i++;
 		}
-		if(!key) continue;
-		if(tokens[i].priority<=min_priority) {min_priority=tokens[i].priority; oper=i;}
+		if(tokens[i].priority<=min_priority)
+		{
+			op=tokens[i].type;
+			min_priority=tokens[i].priority;
+		}
+		else continue;
 	}
-	printf("%d",oper);
-	return oper;
+	return op;
 }
-
-
 uint32_t eval(int p, int q)
 {
 	int value=0;
