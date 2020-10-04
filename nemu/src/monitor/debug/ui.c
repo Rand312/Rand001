@@ -99,7 +99,6 @@ static int cmd_p(char *args)
 	else 
 	{
 		printf("What's wrong?");
-		assert(0);
 	}
 	return 0;
 }
