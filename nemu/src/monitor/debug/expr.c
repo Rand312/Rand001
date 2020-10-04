@@ -135,7 +135,6 @@ int dominant_operator(int p, int q)
 {
 	int i=0;
 	int op=0;
-	printf("%d",op);
 	int min_priority=10;
 	for(i=p;i<=q;i++)
 	{
@@ -154,7 +153,6 @@ int dominant_operator(int p, int q)
 		}
 		else continue;
 	}
-	printf("%d",op);
 	return op;
 }
 uint32_t eval(int p, int q)
