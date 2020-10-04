@@ -104,18 +104,13 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 					case NOTYPE: break;
-			     		case REGISTER:
+			     		default:
 						     tokens[nr_token].type=rules[i].token_type;
-						     strncpy(tokens[nr_token].str,substr_start,substr_len);
-						     tokens[nr_token].priority=rules[i].priority;
-						     tokens[nr_token].str[substr_len]='\0';
-						     nr_token++;
-						     break;
-			  		default:
-						     tokens[nr_token].type=rules[i].token_type;
-						     strncpy(tokens[nr_token].str,substr_start,substr_len);
-						     tokens[nr_token].priority=rules[i].priority;
-						     tokens[nr_token].str[substr_len]='\0';
+						     for(int j=0;j<substr_len;j++)
+						     {
+							     tokens[nr_token].str[j]=*(substr_start+j);
+						     }
+						     tokens[nr_token].str[substr_len]=0;
 						     nr_token++;
 				}
 				position+=substr_len;
