@@ -171,6 +171,7 @@ int dominant_operator(int p, int q)
 uint32_t eval(int p, int q)
 {
 	int value=0;
+	int i;
 	if(p>q) {Assert(p>q,"Bad epressions!\n");}
 	else if(p==q)
 	{
@@ -180,7 +181,13 @@ uint32_t eval(int p, int q)
 			sscanf(tokens[p].str,"%d",&value);
 			break;
 		case HNUMBER:
-			sscanf(tokens[p].str,"%d",&value);
+			i=2;	
+			while(tokens[p].str[i]!=0)
+			{
+				value*=16;
+				value+=tokens[p].str[i]<58?tokens[p].str[i]-'0':tokens[p].str[i]-'a'+10;
+				i++;
+			}
 			break;
 		}
 	}
