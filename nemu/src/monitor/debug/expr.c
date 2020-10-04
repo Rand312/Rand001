@@ -46,7 +46,7 @@ static struct rule {
 	{"\\(",LBRA,7},
 	{"\\)",RBRA,7},
 	{"[0-9]+",NUMBER,0},
-	{"0x[0-9a-fA-F]+",HNUMBER,0},
+	{"[0-9a-fA-F]+",HNUMBER,0},
 	{"\\$[a-zA-Z]+",REGISTER,0}
 };
 
@@ -188,6 +188,9 @@ uint32_t eval(int p, int q)
 				value+=tokens[p].str[i]<58?tokens[p].str[i]-'0':tokens[p].str[i]-'a'+10;
 				i++;
 			}
+			break;
+		case REGISTER:
+			if(!strcmp(tokens[p].str,"$eax")) value=cpu.eax;
 			break;
 		}
 	}
