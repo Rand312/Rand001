@@ -191,7 +191,13 @@ uint32_t eval(int p, int q)
 			break;
 		case REGISTER:
 			if(!strcmp(tokens[p].str,"$eax")) value=cpu.eax;
-			break;
+			if(!strcmp(tokens[p].str,"$ebx")) value=cpu.ebx;
+			if(!strcmp(tokens[p].str,"$ecx")) value=cpu.ecx;
+			if(!strcmp(tokens[p].str,"$edx")) value=cpu.edx;
+			if(!strcmp(tokens[p].str,"$esp")) value=cpu.esp;
+			if(!strcmp(tokens[p].str,"$ebp")) value=cpu.ebp;
+			if(!strcmp(tokens[p].str,"$esi")) value=cpu.esi;
+			if(!strcmp(tokens[p].str,"$edi")) value=cpu.edi;
 		}
 	}
 
