@@ -149,7 +149,7 @@ int dominant_operator(int p, int q)
 	int oper=p;
 	for(i=p;i<=q;i++)
 	{
-		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER) continue;
+		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue;
 		int cnt=0;
 		bool key = true;
 		for(j=i-1;j>=1;j--)
