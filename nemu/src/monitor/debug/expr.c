@@ -127,19 +127,8 @@ static bool make_token(char *e) {
 
 bool check_parentheses(int p, int q)
 {
-	int i;
-	if(tokens[p].type=='(' && tokens[q].type==')')
-	{
-		int lp=0, rp=0;
-		for(i=p+1; i<q; i++)
-		{
-			if((tokens[i].type='(')) lp++;
-			if((tokens[i].type=')')) rp++;
-		}
-		if(lp!=rp) return true;
-		else return false;
-	}
-	return false;
+	if(tokens[p].type==LBRA && tokens[q].type==RBRA) return true;
+	else return false;
 }
 
 int dominant_operator(int p, int q)
