@@ -216,10 +216,6 @@ uint32_t eval(int p, int q)
 		}
 			
 	}
-	for(int i=0;i<nr_token;i++)
-	{
-		printf("%d\n",tokens[i].type);
-	}
 	return value;
 }
 
@@ -232,6 +228,10 @@ uint32_t expr(char *e, bool *success)
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
+	for(int i=0;i<nr_token;i++)
+	{
+		printf("%d",tokens[i].type);
+	}
 	*success=true;
 	return eval(0,nr_token-1);
 }
