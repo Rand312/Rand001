@@ -164,6 +164,7 @@ int dominant_operator(int p, int q)
 		if(!key) continue;
 		if(tokens[i].priority<=min_priority) {min_priority=tokens[i].priority; oper=i;}
 	}
+	printf("%d",oper);
 	return oper;
 }
 
@@ -232,6 +233,19 @@ uint32_t eval(int p, int q)
 			case MOD:
 			value=val1%val2;
 			break;
+			case EQ:
+			value=(val1 == val2);
+			break;
+			case NEQ:
+			value=(val1 != val2);
+			break;
+			case LAND:
+			value=(val1 && val2);
+			break;
+			case LOR:
+			value=(val1 || val2);
+			break;
+
 		}
 			
 	}
