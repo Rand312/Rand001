@@ -208,14 +208,19 @@ uint32_t eval(int p, int q)
 		{
 			case ADD:
 			value=val1+val2;
+			break;
 			case SUB:
 			value=val1-val2;
+			break;
 			case MUL:
 			value=val1*val2;
+			break;
 			case DIV:
 			value=val1/val2;
+			break;
 			case MOD:
 			value=val1%val2;
+			break;
 		}
 			
 	}
