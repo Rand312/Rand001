@@ -179,18 +179,10 @@ uint32_t eval(int p, int q)
 	if(p>q) {Assert(p>q,"Bad epressions!\n");}
 	else if(p==q)
 	{
-		int i;
 		switch(tokens[p].type)
 		{
 		case NUMBER:
-		
-			i=0;
-			while(tokens[p].str[i]!=0)
-			{
-				value*=10;
-				value+=tokens[p].str[i]-'0';
-				i++;
-			}
+			sscanf(tokens[p].str,"%d",&value);
 			break;
 		case HNUMBER:
 			sscanf(tokens[p].str,"%d",&value);
