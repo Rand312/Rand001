@@ -98,7 +98,7 @@ static bool make_token(char *e) {
 				 * to record the token in the array `tokens'. For certain types
 				 * of tokens, some extra actions should be performed.
 				 */
-				printf("999  %d  ",rules[i].token_type);
+				printf("999  %d\n",rules[i].token_type);
 				switch(rules[i].token_type) {
 					case NOTYPE: break;
 			     		default:
@@ -251,7 +251,7 @@ uint32_t expr(char *e, bool *success)
 	/* TODO: Insert codes to evaluate the expression. */
 	for(int i=0;i<nr_token;i++)
 	{
-		printf("%d\n",tokens[i].type);
+		printf(" 333 %d\n",tokens[i].type);
 	}
 	*success=true;
 	return eval(0,nr_token-1);
