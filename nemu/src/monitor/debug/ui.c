@@ -124,7 +124,8 @@ static int cmd_d(char *args)
 	int dNO;
 	sscanf(args,"%d",&dNO);
 	free_wp(dNO);
-	
+
+	printf("Watchpoint %d has already been removed",dNO);	
 	return 0;
 }
 

@@ -60,9 +60,11 @@ void free_wp(int dNO)
 	else if(p->NO==dNO)
 	{
 		head=head->next;
+		p->val=0;
+		p->isused=0;
 		p->next=free_;
 		free_=p;
-		
+				
 		return;
 	}
 	
