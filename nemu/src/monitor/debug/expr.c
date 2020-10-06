@@ -201,7 +201,9 @@ uint32_t eval(int p, int q)
 		op=tokens[op_pos].type;
 		printf("hello here!\n");
 		int val1=eval(p,op_pos-1);
+		printf("11111111111111111\n");
 		int val2=eval(op_pos+1,q);
+		printf("2222222222222222\n");
 
 		switch(op)
 		{
