@@ -103,6 +103,32 @@ static int cmd_p(char *args)
 	return 0;
 }
 
+static int cmd_w(char *args)
+{
+	WP *nnew=NULL;
+	bool suc;
+	int val;
+
+	val=expr(args,&suc);
+	if(!suc) Assert(1,"expression wrong");
+
+	nnew=new_wp(args,val);
+
+	printf("The watchpoint %d has been set, and the expression is %s\n",nnew->NO,nnew->expr);
+	printf("The value is %d\n",nnew->val);
+
+	return 0;
+}
+
+static int cmd_d(char *args)
+{
+	int dNO;
+	sscanf(args,"%d",&dNO);
+	free_wp(dNO);
+	
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -116,7 +142,9 @@ static struct {
 	{"si", "execute the given steps",cmd_si},
 	{"info","print the register information or the watchpoint information",cmd_info},
 	{"x", "print the data in memory in the certain area",cmd_x},
-	{"p", "calculate  the expression",cmd_p}
+	{"p", "calculate  the expression",cmd_p},
+	{"w", "set the watchpoint",cmd_w},
+	{"d", "delete the watchpoint numbered NO",cmd_d}
 	/* TODO: Add more commands */
 
 };
