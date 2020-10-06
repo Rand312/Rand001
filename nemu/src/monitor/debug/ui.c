@@ -110,7 +110,7 @@ static int cmd_w(char *args)
 	int val;
 
 	val=expr(args,&suc);
-	printf("cmd_w  %d   herhehr\n",val);
+	printf("cmd_w  %d    %s\n",val,args);
 	nnew=new_wp(args,val);
 
 	printf("The watchpoint %d has been set, and the expression is %s\n",nnew->NO,nnew->expr);
