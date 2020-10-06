@@ -1,7 +1,7 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
 
-#define NR_WP 128
+#define NR_WP 32
 
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
@@ -18,12 +18,14 @@ void init_wp_pool() {
 
 	head = NULL;
 	free_ = wp_pool;
+	printf("  111  \n");
 }
 
 /* TODO: Implement the functionality of watchpoint */
 
 WP *new_wp(char *str, int value)
 {
+	printf("   222  \n");
 	if(free_==NULL)
 	{
 		printf("There is no free watchpoint!!!");
@@ -53,6 +55,7 @@ WP *new_wp(char *str, int value)
 
 void free_wp(int dNO)
 {
+	printf("  333  \n");
 	WP *p=head;
 	
 	if(head==NULL) Assert(1,"There is no watchpoint need to remove");
