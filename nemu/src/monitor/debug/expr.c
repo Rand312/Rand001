@@ -43,7 +43,7 @@ static struct rule {
 	{"\\(",LBRA,7},
 	{"\\)",RBRA,7},
 	{"[0-9]+",NUMBER,0},
-	{"0[xX][0-9a-fA-F]+",HNUMBER,0},
+	{"[0-9a-fA-F]+",HNUMBER,0},
 	{"\\$[a-zA-Z]+",REGISTER,0}
 };
 
@@ -169,7 +169,7 @@ uint32_t eval(int p, int q)
 			sscanf(tokens[p].str,"%d",&value);
 			break;
 		case HNUMBER:
-			i=2;	
+			i=0;	
 			while(tokens[p].str[i]!=0)    //sscanf(tokens[p].str,"%d",&value)
 			{
 				value*=16;
