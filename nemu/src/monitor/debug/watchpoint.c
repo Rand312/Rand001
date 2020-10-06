@@ -49,13 +49,13 @@ WP *new_wp(char *str, int value)
 		new->next=head;
 		head=new;
 	}
-
+	printf("  333  \n");
 	return new;
+
 }
 
 void free_wp(int dNO)
 {
-	printf("  333  \n");
 	WP *p=head;
 	
 	if(head==NULL) Assert(1,"There is no watchpoint need to remove");
