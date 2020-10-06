@@ -236,6 +236,7 @@ uint32_t eval(int p, int q)
 		}
 			
 	}
+	printf("qqqqqqqqqqqqqqq%d",value);
 	return value;
 }
 
