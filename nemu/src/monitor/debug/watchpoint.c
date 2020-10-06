@@ -18,14 +18,12 @@ void init_wp_pool() {
 
 	head = NULL;
 	free_ = wp_pool;
-	printf("  111  \n");
 }
 
 /* TODO: Implement the functionality of watchpoint */
 
 WP *new_wp(char *str, int value)
 {
-	printf("   222  \n");
 	if(free_==NULL)
 	{
 		printf("There is no free watchpoint!!!");
@@ -36,10 +34,7 @@ WP *new_wp(char *str, int value)
 	free_=free_->next;
 
 	new->val=value;   
-	printf("  333  \n");
-			            //assignment
 	strcpy(new->expr,str);
-	printf("  444  \n");
 	new->isused=1; 
 
 	if((head=NULL))                 //new->next assignment
