@@ -38,7 +38,7 @@ WP *new_wp(char *str, int value)
 	new->val=value;   
 	printf("  333  \n");
 			            //assignment
-	strcpy(new->expr,str);
+	strncpy(new->expr,str,32);
 	printf("  444  \n");
 	new->isused=1; 
 
