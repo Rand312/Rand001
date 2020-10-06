@@ -32,6 +32,7 @@ WP *new_wp(char *str, int value)
 		assert(0);
 	}
 
+	printf("  333  \n");
 	WP *new=free_;                 //create 
 	free_=free_->next;
 
@@ -49,7 +50,6 @@ WP *new_wp(char *str, int value)
 		new->next=head;
 		head=new;
 	}
-	printf("  333  \n");
 	return new;
 
 }
