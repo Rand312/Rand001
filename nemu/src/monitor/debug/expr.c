@@ -43,7 +43,7 @@ static struct rule {
 	{"\\(",LBRA,7},
 	{"\\)",RBRA,7},
 	{"[0-9]+",NUMBER,0},
-	{"^0^x[0-9a-fA-F]+",HNUMBER,0},
+	{"0x[0-9a-fA-F]+",HNUMBER,0},
 	{"\\$[a-zA-Z]+",REGISTER,0}
 };
 
