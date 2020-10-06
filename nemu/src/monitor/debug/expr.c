@@ -98,7 +98,6 @@ static bool make_token(char *e) {
 				 * to record the token in the array `tokens'. For certain types
 				 * of tokens, some extra actions should be performed.
 				 */
-				printf("999  %d\n",rules[i].token_type);
 				switch(rules[i].token_type) {
 					case NOTYPE: break;
 			     		default:
@@ -200,7 +199,7 @@ uint32_t eval(int p, int q)
 		int op_pos;
 		op_pos=dominant_operator(p,q);
 		op=tokens[op_pos].type;
-		printf("%d ",op);
+		printf("hello here!\n");
 		int val1=eval(p,op_pos-1);
 		int val2=eval(op_pos+1,q);
 
