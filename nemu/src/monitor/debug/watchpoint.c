@@ -34,11 +34,13 @@ WP *new_wp(char *str, int value)
 
 	WP *new=free_;                 //create 
 	free_=free_->next;
+	
+	printf("  333  \n");
 
 	new->val=value;               //assignment
 	strcpy(new->expr,str);
 	new->isused=1; 
-	printf("  333  \n");
+
 	if((head=NULL))                 //new->next assignment
 	{ 
 		new->next=NULL;
