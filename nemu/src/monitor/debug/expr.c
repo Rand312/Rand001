@@ -14,7 +14,7 @@ enum {
         EQ, NEQ,	
 	LOR, LAND,            //Logic operation
         LBRA, RBRA,           //(  )
-	NUMBER,HNUMBER,REGISTER
+	HNUMBER,NUMBER,REGISTER
 	/* TODO: Add more token types */
 
 };
@@ -42,8 +42,8 @@ static struct rule {
 	{"\\|\\|",LOR,1},
 	{"\\(",LBRA,7},
 	{"\\)",RBRA,7},
+	{"0[xX][0-9a-fA-F]+",HNUMBER,0},
 	{"[0-9]+",NUMBER,0},
-	{"\\b0x[0-9a-fA-F]+\\b",HNUMBER,0},
 	{"\\$[a-zA-Z]+",REGISTER,0}
 };
 
