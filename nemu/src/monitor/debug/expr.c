@@ -153,6 +153,7 @@ int dominant_operator(int p, int q)
 		}
 		else continue;
 	}
+	printf("hello, here!\n");
 	return op;
 }
 uint32_t eval(int p, int q)
@@ -199,7 +200,6 @@ uint32_t eval(int p, int q)
 		int op_pos;
 		op_pos=dominant_operator(p,q);
 		op=tokens[op_pos].type;
-		printf("hello here!\n");
 		int val1=eval(p,op_pos-1);
 		printf("11111111111111111\n");
 		int val2=eval(op_pos+1,q);
