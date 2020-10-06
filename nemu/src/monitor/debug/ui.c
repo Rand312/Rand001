@@ -110,7 +110,7 @@ static int cmd_w(char *args)
 	int val;
 
 	val=expr(args,&suc);
-	if(!suc) Assert(1,"expression error");
+	if(!suc) Assert(1,"expression error\n");
 	nnew=new_wp(args,val);
 
 	printf("The watchpoint %d has been set, and the expression is %s\n",nnew->NO,nnew->expr);
@@ -125,7 +125,7 @@ static int cmd_d(char *args)
 	sscanf(args,"%d",&dNO);
 	free_wp(dNO);
 
-	printf("Watchpoint %d has already been removed",dNO);	
+	printf("Watchpoint %d has already been removed\n",dNO);	
 	return 0;
 }
 
