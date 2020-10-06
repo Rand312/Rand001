@@ -39,6 +39,7 @@ WP *new_wp(char *str, int value)
 	printf("  333  \n");
 			            //assignment
 	strcpy(new->expr,str);
+	printf("  444  \n");
 	new->isused=1; 
 
 	if((head=NULL))                 //new->next assignment
