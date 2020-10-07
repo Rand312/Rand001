@@ -128,16 +128,16 @@ static bool make_token(char *e) {
 bool check_parentheses(int p, int q)
 {
 	int i;
-	int lc=0, rc=0;
+	int count=0;
 	if(tokens[p].type==LBRA && tokens[q].type==RBRA)
 	{
 		for(i=p+1;i<q;i++)
 		{
-			if(tokens[i].type==LBRA) lc++;
-			if(tokens[i].type==RBRA) rc++;
-			if(rc>lc) return false;
+			if(tokens[i].type==LBRA) count++;
+			if(tokens[i].type==RBRA) count--;
+			if(count<0) return false;
 		}
-	if(lc==rc) return true;
+	if(count==0) return true;
 	}
 	return false;
 }
