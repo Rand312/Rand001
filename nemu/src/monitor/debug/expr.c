@@ -155,6 +155,7 @@ int dominant_operator(int p, int q)
 		{
 			i++;
 			num_LBRA++;
+			printf("11111111111111\n");
 			while(1)
 			{
 				if(tokens[i].type==LBRA) num_LBRA++;
@@ -162,11 +163,13 @@ int dominant_operator(int p, int q)
 				i++;
 				if(num_LBRA==0) break;
 			}
+			printf("22222222222222\n");
 		}
 		if(i<q && tokens[i].priority<=min_priority)
 		{
 			op=i;
 			min_priority=tokens[i].priority;
+			printf("33333333333333333\n");
 		}
 	}
 	printf("hello, here!           %d\n",op);
