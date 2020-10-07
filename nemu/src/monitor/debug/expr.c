@@ -127,31 +127,50 @@ static bool make_token(char *e) {
 
 bool check_parentheses(int p, int q)
 {
-	if(tokens[p].type==LBRA && tokens[q].type==RBRA) return true;
-	else return false;
+	int i;
+	int count=0;
+	if(tokens[p].type==LBRA && tokens[q].type==RBRA)
+	{
+		for(i=p+1;i<q;i++)
+		{
+			if(tokens[i].type==LBRA) count++;
+			if(tokens[i].type==RBRA) count--;
+			if(count>0) return false;
+		}
+	if(count==0) return true;
+	}
+	return false;
 }
 
 int dominant_operator(int p, int q)
 {
 	int i=0;
 	int op=0;
+	int num_LBRA=0;
 	int min_priority=10;
 	for(i=p;i<=q;i++)
 	{
 		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue;
 		if(tokens[i].type==LBRA)
 		{
-			do
-			{i++;}
-			while(tokens[i].type!=RBRA);
 			i++;
+			num_LBRA++;
+			while(1)
+			{
+				if(tokens[i].type==LBRA) num_LBRA++;
+				else if(tokens[i].type==RBRA) num_LBRA--;
+				i++;
+				if(num_LBRA==0) break;
+			}
 		}
-		if(tokens[i].priority<=min_priority)
+		if(i<q)
 		{
-			op=i;
-			min_priority=tokens[i].priority;
+			if(tokens[i].priority<=min_priority)
+			{
+				op=i;
+				min_priority=tokens[i].priority;
+			}
 		}
-		else continue;
 	}
 	printf("hello, here!\n");
 	return op;
