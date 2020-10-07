@@ -172,7 +172,7 @@ int dominant_operator(int p, int q)
 			}
 		}
 	}
-	printf("hello, here!\n");
+	printf("hello, here!\n           %d",op);
 	return op;
 }
 uint32_t eval(int p, int q)
