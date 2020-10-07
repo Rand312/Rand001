@@ -36,7 +36,7 @@ static struct rule {
 	{"/",DIV,5},
 	{"%",MOD,5},
 	{"!",NON,6},
-	{"==",EQ,3},	// equal
+	{"==",EQ,3},	
 	{"!=",NEQ,3},
 	{"&&",LAND,2},
 	{"\\|\\|",LOR,1},
@@ -77,7 +77,7 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-static bool make_token(char *e) {
+static bool make_token(char *e) {                     //match the regular expression, if successful, put it into the 'tokens' arrary
 	int position = 0;
 	int i;
 	regmatch_t pmatch;
@@ -101,13 +101,13 @@ static bool make_token(char *e) {
 				switch(rules[i].token_type) {
 					case NOTYPE: break;
 			     		default:
-						     tokens[nr_token].type=rules[i].token_type;
-						     tokens[nr_token].priority=rules[i].priority;
-						     for(int j=0;j<substr_len;j++)
+						     tokens[nr_token].type=rules[i].token_type;           //put type
+						     tokens[nr_token].priority=rules[i].priority;        //put priority
+						     for(int j=0;j<substr_len;j++)                       //put the sign one by one
 						     {
 							     tokens[nr_token].str[j]=*(substr_start+j);
 						     }
-						     tokens[nr_token].str[substr_len]=0;
+						     tokens[nr_token].str[substr_len]=0;               //let the last charctor be 0
 						     nr_token++;
 				}
 				position+=substr_len;
@@ -125,8 +125,8 @@ static bool make_token(char *e) {
 	return true; 
 }
 
-bool check_parentheses(int p, int q)
-{
+bool check_parentheses(int p, int q)          //chech if the outer parentheses match, if so return true, else return false
+{                                             // for example (1+1) return true   1+1 return false
 	int i;
 	int count=0;
 	if(tokens[p].type==LBRA && tokens[q].type==RBRA)
@@ -135,14 +135,14 @@ bool check_parentheses(int p, int q)
 		{
 			if(tokens[i].type==LBRA) count++;
 			if(tokens[i].type==RBRA) count--;
-			if(count<0) return false;
+			if(count<0) return false;             //eliminate the circumtance like (1+2)+(1+1)
 		}
 	if(count==0) return true;
 	}
 	return false;
 }
 
-int dominant_operator(int p, int q)
+int dominant_operator(int p, int q)       //find the lowest priority operator 
 {
 	int i=0;
 	int op=0;
@@ -150,42 +150,42 @@ int dominant_operator(int p, int q)
 	int min_priority=10;
 	for(i=p;i<=q;i++)
 	{
-		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue;
-		if(tokens[i].type==LBRA)
-		{
+		if(tokens[i].type==NUMBER || tokens[i].type==HNUMBER || tokens[i].type==REGISTER) continue; //if it is a number or 
+		if(tokens[i].type==LBRA)                                                                   //or a register  		
+		{ 											  // continue
 			i++;
 			num_LBRA++;
-			while(1)
-			{
-				if(tokens[i].type==LBRA) num_LBRA++;
+			while(1)                                                  //meet the LBRA then go into a loop until meet
+			{                                                         //the RBRA.  
+				if(tokens[i].type==LBRA) num_LBRA++;         
 				else if(tokens[i].type==RBRA) num_LBRA--;
 				i++;
 				if(num_LBRA==0) break;
 			}
 		}
-		if(i<q && tokens[i].priority<=min_priority)
-		{
+		if(i<q && tokens[i].priority<=min_priority)                  // compare the priority 
+		{							    // let the op be the position of the min_priority
 			op=i;
 			min_priority=tokens[i].priority;
 		}
 	}
 	return op;
 }
-uint32_t eval(int p, int q)
+uint32_t eval(int p, int q)                                  //evaluate expression
 {
 	int value=0;
 	int i;
-	if(p>q) {Assert(p>q,"Bad epressions!\n");}
-	else if(p==q)
-	{
-		switch(tokens[p].type)
+	if(p>q) {Assert(p>q,"Bad epressions!\n");}         //p>q   Wrong!!
+	else if(p==q)                                      //p==q   namely that the expression is just only one varible or  
+	{                                                 //the constant number
+		switch(tokens[p].type)                 
 		{
-		case NUMBER:
+		case NUMBER:                                  
 			sscanf(tokens[p].str,"%d",&value);
 			break;
 		case HNUMBER:
 			i=2;	
-			while(tokens[p].str[i]!=0)    //sscanf(tokens[p].str,"%d",&value)
+			while(tokens[p].str[i]!=0)    //use   sscanf(tokens[p].str,"%d",&value)  which is more concise 
 			{
 				value*=16;
 				value+=tokens[p].str[i]<58?tokens[p].str[i]-'0':tokens[p].str[i]-'a'+10;
@@ -205,17 +205,17 @@ uint32_t eval(int p, int q)
 	}
 
 	
-	else if(check_parentheses(p,q))
+	else if(check_parentheses(p,q))      //if there is the matched parentheses at the outside return 
 	{
 		return eval(p+1,q-1);
 	}
-	else
+	else                                //namely the more likely circumstance     q>p    such as 1+1
 	{
 		int op;
 		int op_pos;
-		op_pos=dominant_operator(p,q);
-		op=tokens[op_pos].type;
-		int val1=eval(p,op_pos-1);
+		op_pos=dominant_operator(p,q);       //min_priority operator's position
+		op=tokens[op_pos].type;              //the operator
+		int val1=eval(p,op_pos-1);          
 		int val2=eval(op_pos+1,q);
 
 		switch(op)
@@ -254,7 +254,7 @@ uint32_t eval(int p, int q)
 	return value;
 }
 
-uint32_t expr(char *e, bool *success)
+uint32_t expr(char *e, bool *success)   //general evaluate  expression function     it is called in ui.c
 {
 	if(!make_token(e)) 
 	{
@@ -264,6 +264,6 @@ uint32_t expr(char *e, bool *success)
 
 	/* TODO: Insert codes to evaluate the expression. */
 	*success=true;
-	return eval(0,nr_token-1);
+	return eval(0,nr_token-1) ;    
 }
 

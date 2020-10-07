@@ -6,11 +6,11 @@
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
 
-void init_wp_pool() {
+void init_wp_pool() {       //initialize each element in wp_pool array
 	int i;
 	for(i = 0; i < NR_WP; i ++) {
 		wp_pool[i].NO = i;
-		wp_pool[i].next = &wp_pool[i + 1];
+		wp_pool[i].next = &wp_pool[i + 1];      //create the list
 		wp_pool[i].val=0;
 		wp_pool[i].isused=0;
 	}
@@ -22,7 +22,7 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-WP *new_wp(char *str, int value)
+WP *new_wp(char *str, int value)    //creat new watchpoint function
 {
 	if(free_==NULL)
 	{
@@ -30,14 +30,14 @@ WP *new_wp(char *str, int value)
 		assert(0);
 	}
 
-	WP *new=free_;                 //create 
+	WP *new=free_;                   
 	free_=free_->next;
 
 	new->val=value;   
 	strcpy(new->expr,str);
 	new->isused=1; 
 
-	if((head=NULL))                 //new->next assignment
+	if((head=NULL))                 
 	{ 
 		new->next=NULL;
 		head=new;
@@ -51,7 +51,7 @@ WP *new_wp(char *str, int value)
 
 }
 
-void free_wp(int dNO)
+void free_wp(int dNO)     //free the node numbered dNO
 {
 	WP *p=head;
 	
@@ -87,7 +87,6 @@ void free_wp(int dNO)
 			}
 		p=p->next;
 		q=q->next;
-
 		}
 	}
 
