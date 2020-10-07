@@ -163,13 +163,10 @@ int dominant_operator(int p, int q)
 				if(num_LBRA==0) break;
 			}
 		}
-		if(i<q)
+		if(i<q && tokens[i].priority<=min_priority)
 		{
-			if(tokens[i].priority<=min_priority)
-			{
-				op=i;
-				min_priority=tokens[i].priority;
-			}
+			op=i;
+			min_priority=tokens[i].priority;
 		}
 	}
 	printf("hello, here!           %d\n",op);
