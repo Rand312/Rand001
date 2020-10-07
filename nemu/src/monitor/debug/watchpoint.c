@@ -24,20 +24,20 @@ void init_wp_pool() {       //initialize each element in wp_pool array
 
 WP *new_wp(char *str, int value)    //creat new watchpoint function
 {
-	if(free_==NULL)
+	if(free_==NULL)            // there is no free watchpoint
 	{
 		printf("There is no free watchpoint!!!");
 		assert(0);
 	}
 
-	WP *new=free_;                   
+	WP *new=free_;              //create a new node      
 	free_=free_->next;
 
-	new->val=value;   
+	new->val=value;            //assignment
 	strcpy(new->expr,str);
 	new->isused=1; 
 
-	if((head=NULL))                 
+	if((head=NULL))             //assign the value to new->next    
 	{ 
 		new->next=NULL;
 		head=new;
@@ -57,7 +57,7 @@ void free_wp(int dNO)     //free the node numbered dNO
 	
 	if(head==NULL) Assert(1,"There is no watchpoint need to remove");
 
-	else if(p->NO==dNO)
+	else if(p->NO==dNO)             //the watchpoint which need to free is at the head of list
 	{
 		head=head->next;
 		p->val=0;
@@ -68,7 +68,7 @@ void free_wp(int dNO)     //free the node numbered dNO
 		return;
 	}
 	
-	else
+	else                          //the ordinary situation then operate the list
 	{
 		WP *q=head;
 		p=p->next;
