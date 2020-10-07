@@ -207,7 +207,6 @@ uint32_t eval(int p, int q)
 	
 	else if(check_parentheses(p,q))
 	{
-		printf("9999999999999999\n");
 		return eval(p+1,q-1);
 	}
 	else
