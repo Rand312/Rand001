@@ -215,6 +215,10 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 			sscanf(tokens[q].str,"%d",&value);
 			value=-value;
 			break;
+			case NON:
+			sscanf(tokens[q].str,"%d",&value);
+			value=!value;
+			break;
 		}
 	}
 	
