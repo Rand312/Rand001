@@ -279,7 +279,7 @@ uint32_t expr(char *e, bool *success)   //general evaluate  expression function 
 	int i;
 	for(i=0;i<nr_token;i++)
 	{
-		if(tokens[i].type==SUB && (tokens[i-1].type==LBRA || tokens[i-1].type==ADD))
+		if(tokens[i].type==SUB && (i==0 || tokens[i-1].type==LBRA || tokens[i-1].type==ADD || tokens[i-1].type==SUB ||tokens[i-1].type==MUL || tokens[i-1].type==DIV || tokens[i-1].type==MOD))
 			{
 				tokens[i].type=NEG;
 				tokens[i].priority=6;
