@@ -292,7 +292,6 @@ uint32_t expr(char *e, bool *success)   //general evaluate  expression function 
 		{
 			tokens[i].type=NEG;
 			tokens[i].priority=6;
-			printf("token[%d].type has changed to the %d",i,NEG);
 		}
 
 		else if(tokens[i].type==MUL && (i==0 || tokens[i-1].type==LBRA || tokens[i-1].type==ADD || tokens[i-1].type==SUB || tokens[i-1].type==MUL || tokens[i-1].type==DIV || tokens[i-1].type==MOD))
