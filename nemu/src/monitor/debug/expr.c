@@ -219,6 +219,11 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 			sscanf(tokens[q].str,"%d",&value);
 			value=!value;
 			break;
+			case DEREF:
+			value=swaddr_read(eval(q,q),4);
+			break;
+			
+			
 		}
 	}
 	
@@ -283,7 +288,7 @@ uint32_t expr(char *e, bool *success)   //general evaluate  expression function 
 	int i;
 	for(i=0;i<nr_token;i++)
 	{
-		if(tokens[i].type==SUB && (i==0 || tokens[i-1].type==LBRA || tokens[i-1].type==ADD || tokens[i-1].type==SUB ||tokens[i-1].type==MUL || tokens[i-1].type==DIV || tokens[i-1].type==MOD))
+		if(tokens[i].type==SUB && (i==0 || tokens[i-1].type==LBRA || tokens[i-1].type==ADD || tokens[i-1].type==SUB || tokens[i-1].type==MUL || tokens[i-1].type==DIV || tokens[i-1].type==MOD))
 		{
 			tokens[i].type=NEG;
 			tokens[i].priority=6;
