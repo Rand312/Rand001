@@ -10,11 +10,12 @@ enum {
 	NOTYPE = 256,
        	ADD, SUB,	      //+ -
        	MUL, DIV, MOD,		//* / %
-	NON,
+	NON,NEG,POINTER,
         EQ, NEQ,	
 	LOR, LAND,            //Logic operation
         LBRA, RBRA,           //(  )
 	HNUMBER,NUMBER,REGISTER
+	
 	/* TODO: Add more token types */
 
 };
@@ -36,6 +37,8 @@ static struct rule {
 	{"/",DIV,5},
 	{"%",MOD,5},
 	{"!",NON,6},
+	{"\\*",POINTER,6},
+	{"-",NEG,6},
 	{"==",EQ,3},	
 	{"!=",NEQ,3},
 	{"&&",LAND,2},
@@ -204,6 +207,16 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 		}
 	}
 
+	else if(q==p+1)
+	{
+		switch(tokens[p].type)
+		{
+			case NEG:
+			sscanf(tokens[q].str,"%d",&value);
+			value=-value;
+			break;
+		}
+	}
 	
 	else if(check_parentheses(p,q))      //if there is the matched parentheses at the outside return 
 	{
@@ -263,6 +276,15 @@ uint32_t expr(char *e, bool *success)   //general evaluate  expression function 
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
+	int i;
+	for(i=0;i<nr_token;i++)
+	{
+		if(tokens[i].type==SUB && (tokens[i-1].type==LBRA || tokens[i-1].type==ADD))
+			{
+				tokens[i].type=NEG;
+				tokens[i].priority=6;
+			}
+	}
 	*success=true;
 	return eval(0,nr_token-1) ;    
 }
