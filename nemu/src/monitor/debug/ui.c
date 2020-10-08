@@ -73,8 +73,8 @@ static int cmd_x(char *args)
 	char *arg = strtok(args," ");  //get the number for recurcive times
 	int n = atoi(arg);    	      //change the type from char to int
 	char *EXPR = strtok(NULL," "); //get the adrress(char type)
-	char *str;
-	swaddr_t addr = strtol(EXPR,&str,16);
+	bool suc;
+	swaddr_t addr = expr(EXPR,&suc);
 	for (int i = 0; i < n; i++)
 	{
 		uint32_t data = swaddr_read(addr+i*4,4);
