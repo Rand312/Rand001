@@ -177,7 +177,7 @@ int dominant_operator(int p, int q)       //find the lowest priority operator
 }
 uint32_t eval(int p, int q)                                  //evaluate expression
 {
-	int value=0;
+	uint32_t value=0;
 	int i;
 	if(p>q) {Assert(p>q,"Bad epressions!\n");}         //p>q   Wrong!!
 	else if(p==q)                                      //p==q   namely that the expression is just only one varible or  
@@ -216,7 +216,7 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 
 	else                                //namely the more likely circumstance     q>p    such as 1+1
 	{
-		int op_pos,op,val1,val2;
+		uint32_t op_pos,op,val1,val2;
 		op_pos=dominant_operator(p,q);       //min_priority operator's position
 		op=tokens[op_pos].type;              //the operator
 		
