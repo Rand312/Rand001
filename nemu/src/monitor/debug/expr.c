@@ -232,31 +232,31 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 		return eval(p+1,q-1);
 	}
 
-	else if(tokens[p].type==NON || tokens[p].type==DEREF || tokens[p].type==NEG)
-	{
-		int val=eval(p+1,q);
-		switch(tokens[p].type)
-		{
-			case NEG:
-			value=-val;
-			break;
-			case NON:
-			value=!val;
-			break;
-			case DEREF:
-			value=swaddr_read(val,4);
-			break;
-		}
-	}
-
 	else                                //namely the more likely circumstance     q>p    such as 1+1
 	{
-		int op;
-		int op_pos;
+		int op_pos,op,val1,val2;
 		op_pos=dominant_operator(p,q);       //min_priority operator's position
 		op=tokens[op_pos].type;              //the operator
-		int val1=eval(p,op_pos-1);          
-		int val2=eval(op_pos+1,q);
+		
+		if(op==NEG || op==NON ||op==DEREF)
+		{
+			val2=eval(op_pos+1,q);
+			switch(op)
+			{
+				case NEG:
+				value=-val2;
+				break;
+				case NON:
+				value=!val2;
+				break;
+				case DEREF:
+				value=swaddr_read(val2,4);
+				break;
+			}
+		}		
+
+		val1=eval(p,op_pos-1);          
+		val2=eval(op_pos+1,q);
 
 		switch(op)
 		{
