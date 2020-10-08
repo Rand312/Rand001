@@ -207,25 +207,6 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 		}
 	}
 
-	/*else if(q==p+1)
-	{
-		switch(tokens[p].type)
-		{
-			case NEG:
-			sscanf(tokens[q].str,"%d",&value);
-			value=-value;
-			break;
-			case NON:
-			sscanf(tokens[q].str,"%d",&value);
-			value=!value;
-			break;
-			case DEREF:
-			value=swaddr_read(eval(q,q),4);
-			break;
-			
-			
-		}
-	}*/
 	
 	else if(check_parentheses(p,q))      //if there is the matched parentheses at the outside return 
 	{
@@ -309,7 +290,6 @@ uint32_t expr(char *e, bool *success)   //general evaluate  expression function 
 		if(tokens[i].type==SUB && (i==0 || tokens[i-1].type==LBRA || tokens[i-1].type==ADD || tokens[i-1].type==SUB || tokens[i-1].type==MUL || tokens[i-1].type==DIV || tokens[i-1].type==MOD))
 		{
 			tokens[i].type=NEG;
-			printf("   %d    \n ",tokens[i].type);
 			tokens[i].priority=6;
 		}
 
