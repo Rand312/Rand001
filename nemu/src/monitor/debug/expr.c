@@ -10,7 +10,7 @@ enum {
 	NOTYPE = 256,
        	ADD, SUB,	      //+ -
        	MUL, DIV, MOD,		//* / %
-	NON,NEG,POINTER,
+	NON,NEG,DEREF,
         EQ, NEQ,	
 	LOR, LAND,            //Logic operation
         LBRA, RBRA,           //(  )
@@ -37,7 +37,7 @@ static struct rule {
 	{"/",DIV,5},
 	{"%",MOD,5},
 	{"!",NON,6},
-	{"\\*",POINTER,6},
+	{"\\*",DEREF,6},
 	{"-",NEG,6},
 	{"==",EQ,3},	
 	{"!=",NEQ,3},
