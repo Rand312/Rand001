@@ -309,7 +309,7 @@ uint32_t expr(char *e, bool *success)   //general evaluate  expression function 
 		if(tokens[i].type==SUB && (i==0 || tokens[i-1].type==LBRA || tokens[i-1].type==ADD || tokens[i-1].type==SUB || tokens[i-1].type==MUL || tokens[i-1].type==DIV || tokens[i-1].type==MOD))
 		{
 			tokens[i].type=NEG;
-			printf("555555555555555555");
+			printf("   %d    \n ",tokens[i].type);
 			tokens[i].priority=6;
 		}
 
