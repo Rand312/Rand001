@@ -289,6 +289,12 @@ uint32_t expr(char *e, bool *success)   //general evaluate  expression function 
 			tokens[i].priority=6;
 		}
 
+		else if(tokens[i].type==DEREF && (i==0 || tokens[i-1].type==LBRA || tokens[i-1].type==ADD || tokens[i-1].type==SUB || tokens[i-1].type==MUL || tokens[i-1].type==DIV || tokens[i-1].type==MOD))
+		{
+			tokens[i].type=DEREF;
+			tokens[i].priority=6;
+		}
+
 	}
 	*success=true;
 	return eval(0,nr_token-1) ;    
