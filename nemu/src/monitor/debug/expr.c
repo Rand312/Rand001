@@ -83,7 +83,7 @@ int nr_token;
 
 static bool make_token(char *e) {                     //match the regular expression, if successful, put it into the 'tokens' arrary
 	int position = 0;
-	int i;
+	int i,j;
 	regmatch_t pmatch;
 	
 	nr_token = 0;
@@ -107,7 +107,7 @@ static bool make_token(char *e) {                     //match the regular expres
 			     		default:
 						     tokens[nr_token].type=rules[i].token_type;           //put type
 						     tokens[nr_token].priority=rules[i].priority;        //put priority
-						     for(int j=0;j<substr_len;j++)                       //put the sign one by one
+						     for(j=0;j<substr_len;j++)                       //put the sign one by one
 						     {
 							     tokens[nr_token].str[j]=*(substr_start+j);
 						     }

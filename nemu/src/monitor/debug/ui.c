@@ -75,11 +75,12 @@ static int cmd_x(char *args)
 	char *EXPR = strtok(NULL," "); //get the adrress(char type)
 	bool suc;
 	swaddr_t addr = expr(EXPR,&suc);
-	for (int i = 0; i < n; i++)
+	int i,j;
+	for (i = 0; i < n; i++)
 	{
 		uint32_t data = swaddr_read(addr+i*4,4);
 		printf("0x%08x  ",addr+i*4);
-		for(int j=0; j<4; j++)
+		for(j=0; j<4; j++)
 		{
 			printf("%02x  ",data & 0xff);
 			data=data>>8;
