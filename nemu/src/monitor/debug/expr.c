@@ -207,7 +207,7 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 		}
 	}
 
-	else if(q==p+1)
+	/*else if(q==p+1)
 	{
 		switch(tokens[p].type)
 		{
@@ -225,12 +225,30 @@ uint32_t eval(int p, int q)                                  //evaluate expressi
 			
 			
 		}
-	}
+	}*/
 	
 	else if(check_parentheses(p,q))      //if there is the matched parentheses at the outside return 
 	{
 		return eval(p+1,q-1);
 	}
+
+	else if(tokens[p].type==NON || tokens[p].type==DEREF || tokens[p].type==NEG)
+	{
+		int val=eval(p+1,q);
+		switch(tokens[p].type)
+		{
+			case NEG:
+			value=-val;
+			break;
+			case NON:
+			value=!val;
+			break;
+			case DEREF:
+			value=swaddr_read(val,4);
+			break;
+		}
+	}
+
 	else                                //namely the more likely circumstance     q>p    such as 1+1
 	{
 		int op;
