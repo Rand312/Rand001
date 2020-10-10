@@ -55,16 +55,17 @@ static int cmd_info(char *args)
 	char *arg = strtok(args,"");     //get the command r or w
 	printf("%s\n",arg);
 	if(strcmp(arg,"r")==0)
-	    		{
-			printf("register eax is %x\n",cpu.eax);
-			printf("register ecx is %x\n",cpu.ecx);
-			printf("register edx is %x\n",cpu.edx);
-			printf("register ebx is %x\n",cpu.ebx);
-			printf("register ebp is %x\n",cpu.esp);
-			printf("register esi is %x\n",cpu.esi);
-			printf("register edi is %x\n",cpu.edi);
-			}
-	//else
+	{
+		printf("register eax is %x\n",cpu.eax);
+		printf("register ecx is %x\n",cpu.ecx);
+		printf("register edx is %x\n",cpu.edx);
+		printf("register ebx is %x\n",cpu.ebx);
+		printf("register ebp is %x\n",cpu.esp);
+		printf("register esi is %x\n",cpu.esi);
+		printf("register edi is %x\n",cpu.edi);
+	}
+	else if(strcmp(arg,"w")==0) print_wp();
+	
 	return 0;
 }
 
@@ -145,7 +146,8 @@ static struct {
 	{"x", "print the data in memory in the certain area",cmd_x},
 	{"p", "calculate  the expression",cmd_p},
 	{"w", "set the watchpoint",cmd_w},
-	{"d", "delete the watchpoint numbered NO",cmd_d}
+	{"d", "delete the watchpoint numbered NO",cmd_d},
+
 	/* TODO: Add more commands */
 
 };

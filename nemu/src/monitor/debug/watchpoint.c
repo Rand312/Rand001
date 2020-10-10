@@ -94,7 +94,23 @@ void free_wp(int dNO)     //free the node numbered dNO
 	return;
 }	
 		
-
+void print_wp()
+{
+	WP *p=head;
+	if(p==NULL)
+	{
+		printf("There is no watchpoint!!!\n");
+		return;
+	}
+	else
+	{
+		while(p!=NULL)
+		{
+			printf("%d    %s    %d\n",p->NO,p->expr,p->val);
+			p=p->next;
+		}
+	}
+}
 
 
 
